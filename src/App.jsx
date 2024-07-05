@@ -1,25 +1,47 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import Admin from "./pages/Admin";
 import Home from "./pages/Home";
 import Protected from "./pages/Protected";
 import Public from "./pages/Public";
 import { UserContext } from "./contexts/UserContext";
 import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import AdminLayout from "./Layouts/AdminLayout";
+import MainLayout from "./Layouts/MainLayout";
+import ProtectedLayout from "./Layouts/ProtectedLayout";
 
 const ProtectedRoute = ({ isLoggedIn, children }) => {
-  console.log(isLoggedIn);
-  if (!isLoggedIn) {
-    <Navigate to="/" />;
-  }
-  return <div>{children};</div>;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+  }, [isLoggedIn, navigate]);
+
+  if (isLoggedIn) return <div>{children}</div>;
 };
 
-const AdminRoute = ({ isLoggedIn, isAdmin }) => {
-  if (!isLoggedIn || !isAdmin) {
-    <Navigate to="/" />;
-  }
-  return { children };
+const AdminRoute = ({ isLoggedIn, isAdmin, children }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log("Is admin: ", isLoggedIn);
+    if (!isLoggedIn) {
+      navigate("/login");
+    }
+    if (!isAdmin) {
+      navigate("/");
+    }
+  }, [isLoggedIn, isAdmin, navigate]);
+  if (isLoggedIn && isAdmin) return <div>{children}</div>;
 };
 
 function App() {
@@ -29,18 +51,41 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/public" element={<Public />} />
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/public"
+          element={
+            <MainLayout>
+              <Public />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <MainLayout>
+              <Login />
+            </MainLayout>
+          }
+        />
 
         {/* Protected Routes */}
         <Route
           path="/protected"
           element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <Protected />
-            </ProtectedRoute>
+            <ProtectedLayout>
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Protected />
+              </ProtectedRoute>
+            </ProtectedLayout>
           }
         />
         {/* <Route
@@ -56,7 +101,9 @@ function App() {
           path="/admin/*"
           element={
             <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-              <Admin />
+              <AdminLayout>
+                <Admin />
+              </AdminLayout>
             </AdminRoute>
           }
         ></Route>

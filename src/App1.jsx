@@ -10,7 +10,6 @@ import "./App.css";
 
 // Importing layouts
 import DashboardLayout from "./layouts/DashboardLayout";
-import MainLayout from "./layouts/MainLayout";
 
 // Importing pages
 import Home from "./pages/Home/Home";
@@ -156,78 +155,76 @@ export default function App() {
         />
 
         {/* Admin-Only Routes */}
-        <AdminProvider>
-          <Route
-            path="/dashboard"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <Dashboard />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/forms"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <Forms />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/all-users"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <Users />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/add-course"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <AddCourse />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/edit-course/:courseId"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <EditCourse />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/add-tutor"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <AddTutor />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-          <Route
-            path="/all-courses"
-            element={
-              <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
-                <DashboardLayout>
-                  <AllCourses />
-                </DashboardLayout>
-              </AdminRoute>
-            }
-          />
-        </AdminProvider>
+        <Route
+          path="/dashboard"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/forms"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <Forms />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/all-users"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <Users />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/add-course"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <AddCourse />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/edit-course/:courseId"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <EditCourse />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/add-tutor"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <AddTutor />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/all-courses"
+          element={
+            <AdminRoute isLoggedIn={isLoggedIn} isAdmin={isAdmin}>
+              <DashboardLayout>
+                <AllCourses />
+              </DashboardLayout>
+            </AdminRoute>
+          }
+        />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

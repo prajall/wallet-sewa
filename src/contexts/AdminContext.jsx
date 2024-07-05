@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 const defaultAdminData = {
   name: "",
   email: "",
-  role: "admin",
+  adminKey: "",
   permission: ["admin", "create", "edit"],
 };
 
@@ -14,6 +14,7 @@ export const AdminProvider = ({ children }) => {
     name: "AdminDai",
     email: "admindai@gmail.com",
     permission: ["admin", "create", "edit"],
+    adminKey: "1238812812812382",
   });
 
   return (

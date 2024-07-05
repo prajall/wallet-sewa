@@ -3,11 +3,10 @@ import { UserContext } from "../contexts/UserContext";
 
 const Protected = () => {
   const { userData } = useContext(UserContext);
-  const userName = userData.name;
-
+  console.log("User Data: ", userData);
   return (
     <>
-      <div>Welcome {userName}, this page is protected</div>
+      <div>Protected Page with User datas in console</div>
     </>
   );
 };
