@@ -1,34 +1,48 @@
-import React from "react";
-import { Avatar } from "@mui/material";
+import React, { useContext } from "react";
+import { Avatar, Button } from "@mui/material";
+import { UserContext } from "../contexts/UserContext";
+import { Navigate, redirect } from "react-router-dom";
 
 const Navbar = () => {
+  const { userData, setUserData } = useContext(UserContext);
+  console.log(userData);
+
+  const handleLogin = () => {
+    setUserData({ ...userData, isLoggedIn: true });
+  };
+  const handleLogout = () => {
+    setUserData({ ...userData, isLoggedIn: false });
+    // console.log("redirecting");
+    // redirect("/");
+  };
+
   return (
-    <nav className="bg-slate-700 p-4 flex items-center">
-      <div className="text-white text-2xl font-bold">LOGO</div>
-      <ul className="flex ml-4 space-x-4 text-white">
-        <li>
-          <a href="home" className="hover:underline">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#about" className="hover:underline">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#services" className="hover:underline">
-            Services
-          </a>
-        </li>
-        <li>
-          <a href="#contact" className="hover:underline">
-            Contact
-          </a>
-        </li>
-      </ul>
-      <div className="ml-auto">
-        <Avatar className="bg-white text-blue-500">U</Avatar>
+    <nav className="bg-green p-4 flex justify-between items-center">
+      <div className="text-white text-2xl font-bold">WALLET </div>
+      <div>
+        {!userData.isLoggedIn && (
+          <Button
+            // variant="contained"
+            sx={{ color: "#fff" }}
+            className="bg-green text-white"
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+        )}
+        {userData.isLoggedIn && (
+          <div className="ml-auto flex">
+            <Button
+              // variant="contained"
+              sx={{ color: "#fff" }}
+              className="bg-green text-white"
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+            <Avatar className="bg-white text-blue-500 ">U</Avatar>
+          </div>
+        )}
       </div>
     </nav>
   );
