@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom"; // Outlet is used to render nested routes
+import { Link, Outlet } from "react-router-dom";
 
 function Admin() {
   return (
